@@ -68,17 +68,18 @@
                                             <td class="border px-4 py-2">{{ $kodam->description }}</td>
                                             <td class="border px-4 py-2">
                                                 {{-- <a href="{{ route('kodam.edit', $kodam->id) }}"
-                                                    class="text-blue-500">Edit</a>
+                                                    {{-- class="text-blue-500">Edit</a> --}}
                                                 <form action="{{ route('kodam.destroy', $kodam->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-500">Delete</button>
-                                                </form> --}}
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $kodams->links() }}
                         </div>
                     </div>
                 </section>

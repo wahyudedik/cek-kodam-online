@@ -26,6 +26,13 @@ class KodamController extends Controller
         return redirect()->back()->with('success', 'Kodam has been added successfully');
     }
 
+    public function destroy(Kodam $kodam)
+    {
+        $kodam->delete();
+
+        return redirect()->back()->with('success', 'Kodam has been deleted successfully');
+    }
+
     public function kodamcekstore(Request $request)
     {
         $request->validate([
@@ -41,6 +48,16 @@ class KodamController extends Controller
         $kodamData->birth_date = Carbon::parse($request->date)->format('Y-m-d');
         $kodamData->save();
 
-        return redirect()->back()->with('success', 'Kodam has been check successfully');
+        
+        return redirect()->route('hasil.kodam', $kodamData->name)->with('success', 'Hasil Pengecekan Kodam Anda Sudah Keluar');
+    }
+
+    public function kodamHasil($name)
+    {
+        $kodamDatas = KodamData::where('name', $name)->first();
+
+        $kodam = Kodam::where('id', $kodamDatas->kodam_id)->first();
+
+        return view('hasil', compact('kodamDatas' , 'kodam'));
     }
 }
